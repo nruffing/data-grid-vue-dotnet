@@ -1,4 +1,5 @@
 using DataGridViewDotnet;
+using DataGridViewDotnet.Extensions;
 using DataGridVueDotnetExample.Data;
 using DataGridVueDotnetExample.Data.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -33,14 +34,14 @@ namespace DataGridVueDotnetExample.Controllers
         [HttpPost]
         public async Task<ActionResult<PageData<TestDataItem>>> Post(PageDataRequest request) 
         {
-            if (!(request?.IsValid ?? false))
+            if (request is null || !request.IsValid)
             {
                 return BadRequest();
             }
 
             var dataItems = await _context.TestDataItems
-                .Skip((request.PageNum - 1) * request.PageSize)
-                .Take(request.PageSize)
+                .AsQueryable()
+                .Page(request)
                 .ToArrayAsync();
             var count = await _context.TestDataItems.CountAsync();
 
