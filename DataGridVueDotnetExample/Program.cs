@@ -1,3 +1,5 @@
+using DataGridVueDotnetExample.Data;
+
 namespace DataGridVueDotnetExample
 {
     public class Program
@@ -12,6 +14,8 @@ namespace DataGridVueDotnetExample
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<TestContext>();
 
             var app = builder.Build();
 
