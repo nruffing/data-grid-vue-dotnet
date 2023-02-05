@@ -21,7 +21,25 @@ namespace DataGridVueDotnet.Internal
             var dataItemParameter = Expression.Parameter(typeof(TDataItem));
             var propertyAccess = Expression.Property(dataItemParameter, _fieldName);
             var propertyAccessLamda = Expression.Lambda<Func<TDataItem, TProperty>>(propertyAccess, dataItemParameter);
-            return query.OrderBy(propertyAccessLamda);
+
+            if (isFirst)
+            {
+                return sortType == SortType.Ascending
+                    ? query.OrderBy(propertyAccessLamda)
+                    : query.OrderByDescending(propertyAccessLamda);
+            }
+            else
+            {
+                var ordered = query as IOrderedQueryable<TDataItem>;
+                if (ordered is null)
+                {
+                    throw new InvalidOperationException("Secondary sort was executed prior to primary.");
+                }
+
+                return sortType == SortType.Ascending
+                    ? ordered.ThenBy(propertyAccessLamda)
+                    : ordered.ThenByDescending(propertyAccessLamda);
+            }
         }
     }
 }

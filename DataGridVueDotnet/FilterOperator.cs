@@ -3,10 +3,13 @@
     public enum FilterOperator
     {
         Equals = 0,
-        Contains = 1,
-        GreaterThan = 2,
-        LessThan = 3,
-        GreaterThanOrEqualTo = 4,
-        LessThanOrEqualTo = 5,
+        NotEquals = 1,
+        Contains = 2,
+        StartsWith = 3,
+        EndsWith = 4,
+        GreaterThan = 5,
+        LessThan = 6,
+        GreaterThanOrEqualTo = 7,
+        LessThanOrEqualTo = 8,
     }
 }
