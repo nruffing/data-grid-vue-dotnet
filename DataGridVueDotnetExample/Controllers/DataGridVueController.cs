@@ -1,5 +1,5 @@
-using DataGridViewDotnet;
-using DataGridViewDotnet.Extensions;
+using DataGridVueDotnet;
+using DataGridVueDotnet.Extensions;
 using DataGridVueDotnetExample.Data;
 using DataGridVueDotnetExample.Data.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -39,11 +39,11 @@ namespace DataGridVueDotnetExample.Controllers
                 return BadRequest();
             }
 
-            var dataItems = await _context.TestDataItems
-                .AsQueryable()
-                .Page(request)
+            var query = _context.TestDataItems.AsQueryable();
+            var dataItems = await query
+                .ApplyPageDataRequest(request)
                 .ToArrayAsync();
-            var count = await _context.TestDataItems.CountAsync();
+            var count = await query.CountAsync();
 
             return Ok(new PageData<TestDataItem>()
             {

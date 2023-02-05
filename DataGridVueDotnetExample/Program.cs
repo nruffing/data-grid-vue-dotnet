@@ -1,4 +1,5 @@
 using DataGridVueDotnetExample.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataGridVueDotnetExample
 {
@@ -8,6 +9,12 @@ namespace DataGridVueDotnetExample
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Host.ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+            });
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -15,7 +22,11 @@ namespace DataGridVueDotnetExample
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<TestContext>();
+            builder.Services.AddDbContext<TestContext>(optionsBuilder =>
+            {
+                optionsBuilder
+                    .UseSqlite("DataSource=file::memory:?cache=shared");
+            });
 
             var app = builder.Build();
 

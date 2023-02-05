@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridVueDotnetExample", "DataGridVueDotnetExample.csproj", "{08B952AB-789F-4260-B532-4E3AB77E25D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridViewDotnet", "..\DataGridViewDotnet\DataGridViewDotnet.csproj", "{58875B4B-673A-47FA-A534-92BE4A4BE32D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridVueDotnet", "..\DataGridVueDotnet\DataGridVueDotnet.csproj", "{58875B4B-673A-47FA-A534-92BE4A4BE32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

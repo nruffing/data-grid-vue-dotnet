@@ -1,4 +1,4 @@
-﻿namespace DataGridViewDotnet
+﻿namespace DataGridVueDotnet
 {
     public enum FilterOperator
     {

@@ -7,9 +7,7 @@ namespace DataGridVueDotnetExample.Data
     {
         public DbSet<TestDataItem> TestDataItems { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("DataSource=file::memory:?cache=shared");
-        }
+        public TestContext(DbContextOptions<TestContext> options)
+            : base(options) { }
     }
 }
