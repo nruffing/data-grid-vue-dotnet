@@ -1,10 +1,13 @@
 ﻿using System.Linq.Expressions;
+using System.Reflection;
+using System.Text.Json;
 
 namespace DataGridVueDotnet.Internal
 {
     internal interface IPropertyAccessor<TDataItem>
     {
         IOrderedQueryable<TDataItem> Sort(IQueryable<TDataItem> query, SortType sortType, bool isFirst);
+        Expression GetFilterConditionExpression(ParameterExpression parameter, FilterOperator filterOperator, string? value);
     }
 
     internal class PropertyAccessor<TDataItem, TProperty>: IPropertyAccessor<TDataItem>
@@ -20,13 +23,13 @@ namespace DataGridVueDotnet.Internal
         {
             var dataItemParameter = Expression.Parameter(typeof(TDataItem));
             var propertyAccess = Expression.Property(dataItemParameter, _fieldName);
-            var propertyAccessLamda = Expression.Lambda<Func<TDataItem, TProperty>>(propertyAccess, dataItemParameter);
+            var propertyAccessLambda = Expression.Lambda<Func<TDataItem, TProperty>>(propertyAccess, dataItemParameter);
 
             if (isFirst)
             {
                 return sortType == SortType.Ascending
-                    ? query.OrderBy(propertyAccessLamda)
-                    : query.OrderByDescending(propertyAccessLamda);
+                    ? query.OrderBy(propertyAccessLambda)
+                    : query.OrderByDescending(propertyAccessLambda);
             }
             else
             {
@@ -37,9 +40,44 @@ namespace DataGridVueDotnet.Internal
                 }
 
                 return sortType == SortType.Ascending
-                    ? ordered.ThenBy(propertyAccessLamda)
-                    : ordered.ThenByDescending(propertyAccessLamda);
+                    ? ordered.ThenBy(propertyAccessLambda)
+                    : ordered.ThenByDescending(propertyAccessLambda);
             }
+        }
+
+        public Expression GetFilterConditionExpression(ParameterExpression parameter, FilterOperator filterOperator, string? value)
+        {
+            var valueExpression = typeof(TProperty) == typeof(string)
+                ? Expression.Constant(value)
+                : Expression.Constant(value is null ? default : JsonSerializer.Deserialize<TProperty>($"{value}"));
+            
+            var propertyAccess = Expression.Property(parameter, _fieldName);
+            return filterOperator.GetExpression(propertyAccess, valueExpression);
+        }
+    }
+
+    internal static class PropertyAccessorFactory
+    {
+        private static readonly Type PropertyAccessType = Assembly.GetExecutingAssembly().GetTypes().First(t => t.Name.StartsWith("PropertyAccessor"));
+
+        public static IPropertyAccessor<TDataItem> Create<TDataItem>(string fieldName)
+        {
+            var dataItemType = typeof(TDataItem);
+            var property = dataItemType.GetProperties().FirstOrDefault(p => p.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase));
+            if (property is null)
+            {
+                throw new InvalidOperationException($"Could not find property {fieldName} on {dataItemType}");
+            }
+
+            var propertyAccessType = PropertyAccessType.MakeGenericType(typeof(TDataItem), property.PropertyType);
+            var propertyAccess =  Activator.CreateInstance(propertyAccessType, fieldName) as IPropertyAccessor<TDataItem>;
+            
+            if (propertyAccess is null)
+            {
+                throw new Exception($"Failed to create property accessor for field {fieldName}.");
+            }
+
+            return propertyAccess;
         }
     }
 }

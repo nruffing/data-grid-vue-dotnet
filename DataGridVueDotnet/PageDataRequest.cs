@@ -1,4 +1,6 @@
-﻿namespace DataGridVueDotnet
+﻿using DataGridVueDotnet.Exceptions;
+
+namespace DataGridVueDotnet
 {
     public class PageDataRequest
     {
@@ -10,6 +12,21 @@
 
         public Filter? Filter { get; set; }
 
-        public bool IsValid => PageNum > 0 && PageSize > 0;
+        public bool IsValid => 
+            PageNum > 0 && 
+            PageSize > 0 &&
+            Sort.All(s => s.IsValid) &&
+            (Filter is null || Filter.IsValid);
+    }
+
+    public static class PageDataRequestExtensions
+    {
+        public static void Validate(this PageDataRequest? request)
+        {
+            if (request is null || !request.IsValid)
+            {
+                throw new PageDataRequestInvalidException(request);
+            }
+        }
     }
 }
