@@ -47,9 +47,11 @@ namespace DataGridVueDotnet.Internal
 
         public Expression GetFilterConditionExpression(ParameterExpression parameter, FilterOperator filterOperator, string? value)
         {
-            var valueExpression = typeof(TProperty) == typeof(string)
+            var propertyType = typeof(TProperty);
+
+            var valueExpression = propertyType == typeof(string)
                 ? Expression.Constant(value)
-                : Expression.Constant(value is null ? default : JsonSerializer.Deserialize<TProperty>($"{value}"));
+                : Expression.Constant(value is null ? default : JsonSerializer.Deserialize<TProperty>($"{value}"), propertyType);
             
             var propertyAccess = Expression.Property(parameter, _fieldName);
             return filterOperator.GetExpression(propertyAccess, valueExpression);
