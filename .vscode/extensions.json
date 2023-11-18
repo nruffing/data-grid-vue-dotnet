@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.csdevkit",
+    "streetsidesoftware.code-spell-checker",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "ms-dotnettools.vscodeintellicode-csharp",
+    "EditorConfig.EditorConfig"
+  ]
+}
