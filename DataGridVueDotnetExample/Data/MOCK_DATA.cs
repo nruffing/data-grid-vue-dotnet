@@ -3,11 +3,11 @@ using System.Text.Json;
 
 namespace DataGridVueDotnetExample.Data
 {
-    public static class MOCK_DATA
-    {
+  public static class MOCK_DATA
+  {
 #pragma warning disable CS8601 // Possible null reference assignment.
-        public static readonly TestDataItem[] Data = JsonSerializer.Deserialize<TestDataItem[]>(JSON, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-        public const string JSON = @"
+    public static readonly TestDataItem[] Data = JsonSerializer.Deserialize<TestDataItem[]>(JSON, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+    public const string JSON = @"
 [
     {""id"":1,""firstName"":""Sophie"",""lastName"":""Melding"",""email"":""smelding0@github.com"",""phoneNumber"":6559631182,""dateOfBirth"":""1967-05-12"",""created"":""1963-01-03T00:52:35Z""},
     {""id"":2,""firstName"":""Kynthia"",""lastName"":""Gernier"",""email"":""kgernier1@amazon.com"",""phoneNumber"":8430943699,""dateOfBirth"":""1966-12-31"",""created"":""1970-01-18T08:21:54Z""},
@@ -945,5 +945,5 @@ namespace DataGridVueDotnetExample.Data
 {""id"":934,""firstName"":""Lisette"",""lastName"":""Matschoss"",""email"":""lmatschosspx@delicious.com"",""phoneNumber"":3780505192,""dateOfBirth"":""1964-02-06"",""created"":""1999-02-06T15:43:38Z""}
 ]";
 #pragma warning restore CS8601 // Possible null reference assignment.
-    }
+  }
 }
