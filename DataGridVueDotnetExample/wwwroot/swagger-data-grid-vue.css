@@ -1,0 +1,127 @@
+:root {
+  --color-darkest: #333333;
+  --color-darker: #555555;
+  --color-light: #cccccc;
+  --color-lighter: #eeeeee;
+  --color-lightest: #ffffff;
+  --color-primary: #e57f41;
+
+  --color-get: #61affe66;
+  --color-post: #49cc9066;
+
+  --accent-border: var(--color-primary) 1px solid;
+}
+
+body {
+  background: var(--color-darker);
+}
+
+.swagger-ui .topbar {
+  background: var(--color-darkest);
+  border-bottom: var(--accent-border);
+}
+
+.swagger-ui .info .title,
+.swagger-ui .info a:hover {
+  color: var(--color-darkest);
+}
+
+.swagger-ui .info .title small:not(.version-stamp) {
+  display: none;
+}
+
+.swagger-ui .info .title small.version-stamp {
+  background-color: var(--color-primary);
+  color: var(--color-darkest);
+}
+
+.swagger-ui .info a {
+  color: var(--color-primary);
+}
+
+.swagger-ui,
+.swagger-ui .topbar .download-url-wrapper .select-label,
+.swagger-ui .info li,
+.swagger-ui .info p,
+.swagger-ui .info table,
+.swagger-ui .opblock-tag {
+  color: var(--color-lighter);
+}
+
+.swagger-ui .topbar .download-url-wrapper {
+  display: none;
+}
+
+.swagger-ui .opblock-tag {
+  border-bottom: var(--accent-border);
+}
+
+.swagger-ui .opblock.opblock-get {
+  background: var(--color-get);
+}
+
+.swagger-ui .opblock.opblock-post {
+  background: var(--color-post);
+}
+
+.swagger-ui .opblock .opblock-section-header {
+  background: var(--color-darkest);
+}
+
+.swagger-ui .opblock .opblock-section-header h4 {
+  color: var(--color-lighter);
+}
+
+.swagger-ui section.models .model-container {
+  background-color: var(--color-dark);
+}
+
+.swagger-ui .btn {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-darkest);
+}
+
+.swagger-ui .btn.execute {
+  color: var(--color-darkest);
+}
+
+.swagger-ui .btn:hover,
+.swagger-ui .btn:focus,
+.swagger-ui .btn.execute:hover,
+.swagger-ui .btn.execute:focus {
+  background: var(--color-lighter);
+}
+
+.swagger-ui .model-box-control:focus,
+.swagger-ui .models-control:focus,
+.swagger-ui .opblock-summary-control:focus {
+  outline: none;
+}
+
+.swagger-ui .response-control-media-type--accept-controller select,
+.swagger-ui .response-control-media-type__accept-message {
+  border-color: var(--color-primary);
+}
+
+.swagger-ui section.models,
+.swagger-ui section.models h4,
+.swagger-ui .model-title,
+.swagger-ui .model,
+.swagger-ui .model .external-docs, .swagger-ui table.model tr.description {
+  color: var(--color-lighter);
+  border-color: var(--color-lighter);
+}
+
+.swagger-ui section.models.is-open h4 {
+  border-bottom-color: var(--color-lighter);
+}
+
+.swagger-ui .prop-type {
+  color: var(--color-primary);
+}
+
+.swagger-ui .prop-format,
+.swagger-ui .model .property.primitive {
+  color: var(--color-light);
+}

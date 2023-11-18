@@ -4,7 +4,10 @@
 	"editor.tabSize": 2,
 	"editor.indentSize": "tabSize",
 	"cSpell.words": [
-		"pageable"
+    "pageable",
+    "Stylesheet",
+    "Swashbuckle",
+    "topbar"
   ],
   "editor.semanticTokenColorCustomizations": {
     "[Default Dark Modern]": {
