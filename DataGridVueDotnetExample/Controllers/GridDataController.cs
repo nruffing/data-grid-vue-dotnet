@@ -8,12 +8,12 @@ using Microsoft.EntityFrameworkCore;
 namespace DataGridVueDotnetExample.Controllers
 {
   [ApiController]
-  [Route("[controller]")]
-  public class DataGridVueController : ControllerBase
+  [Route("[controller]/[action]")]
+  public class GridDataController : ControllerBase
   {
     private readonly TestContext _context;
 
-    public DataGridVueController(TestContext context)
+    public GridDataController(TestContext context)
     {
       _context = context;
       _context.Database.Migrate();
@@ -29,7 +29,8 @@ namespace DataGridVueDotnetExample.Controllers
     /// Get all data items.
     /// </summary>
     [HttpGet]
-    public async Task<ActionResult<TestDataItem[]>> Get()
+    [ProducesResponseType<TestDataItem[]>(200)]
+    public async Task<ActionResult<TestDataItem[]>> GetAll()
     {
       return Ok(await _context.TestDataItems.ToArrayAsync());
     }
@@ -38,7 +39,9 @@ namespace DataGridVueDotnetExample.Controllers
     /// Get page data based on request.
     /// </summary>
     [HttpPost]
-    public async Task<ActionResult<PageData<TestDataItem>>> Post(PageDataRequest request)
+    [ProducesResponseType(400)]
+    [ProducesResponseType<PageData<TestDataItem>>(200)]
+    public async Task<ActionResult<PageData<TestDataItem>>> GetPageData(PageDataRequest request)
     {
       if (request is null || !request.IsValid)
       {

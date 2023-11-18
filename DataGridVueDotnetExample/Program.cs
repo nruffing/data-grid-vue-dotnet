@@ -16,9 +16,12 @@ namespace DataGridVueDotnetExample
       // Add services to the container.
 
       builder.Services.AddControllers();
+      builder.Services.AddMemoryCache();
+
       // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
       builder.Services.AddEndpointsApiExplorer();
-      builder.Services.AddSwaggerGen(options => {
+      builder.Services.AddSwaggerGen(options =>
+      {
         options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
         {
           Version = "v1",
@@ -51,11 +54,11 @@ namespace DataGridVueDotnetExample
                   "AllowLocal",
                   policy =>
                   {
-                policy
-                          .WithOrigins("http://localhost:5173", "http://localhost:8080", "https://datagridvue.com")
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
-              }
+                    policy
+                              .WithOrigins("http://localhost:5173", "http://localhost:8080", "https://datagridvue.com")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
+                  }
               );
       });
 
@@ -64,7 +67,8 @@ namespace DataGridVueDotnetExample
       app.UseCors("AllowLocal");
 
       app.UseSwagger();
-      app.UseSwaggerUI(options => {
+      app.UseSwaggerUI(options =>
+      {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.RoutePrefix = "";
       });

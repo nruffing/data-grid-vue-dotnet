@@ -5,5 +5,13 @@
 	"editor.indentSize": "tabSize",
 	"cSpell.words": [
 		"pageable"
-	],
+  ],
+  "editor.semanticTokenColorCustomizations": {
+    "[Default Dark Modern]": {
+      "rules": {
+        "interface": "#ece696",
+        "namespace": "#dddddd"
+      }
+    }
+  },
 }
