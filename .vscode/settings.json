@@ -4,6 +4,8 @@
 	"editor.tabSize": 2,
 	"editor.indentSize": "tabSize",
 	"cSpell.words": [
+    "Docfx",
+    "Docset",
     "pageable",
     "Stylesheet",
     "Swashbuckle",
