@@ -60,7 +60,7 @@ jobs:
         with:
           dotnet-version: '8.x'
       - name: dotnet nuget push
-        run: dotnet nuget push ${{env.DOTNET_ROOT}}/lib-pack/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push ${{env.DOTNET_ROOT}}/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
 
   example_api_deploy:
     runs-on: ubuntu-latest
