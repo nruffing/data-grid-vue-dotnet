@@ -45,11 +45,14 @@ jobs:
   lib_publish:
     runs-on: ubuntu-latest
     needs: [example_api_build, lib_build]
+    defaults:
+      run:
+        working-directory: ./DataGridVueDotnet
     steps:
       - name: publish on version change
         uses: brandedoutcast/publish-nuget@v2
         with:
-          PROJECT_FILE_PATH: DataGridVueDotnet/DataGridVueDotnet.csproj
+          PROJECT_FILE_PATH: DataGridVueDotnet.csproj
           BUILD_CONFIGURATION: Release
           PACKAGE_NAME: DataGridVueDotnet  
           VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
