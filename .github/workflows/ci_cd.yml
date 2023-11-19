@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./DataGridVueDotnet
+        working-directory: /DataGridVueDotnet
     steps:
       - uses: actions/checkout@v4
       - name: Set up .NET Core
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./DataGridVueDotnetExample
+        working-directory: /DataGridVueDotnetExample
     steps:
       - uses: actions/checkout@v4
       - name: Set up .NET Core
@@ -50,9 +50,6 @@ jobs:
   lib_publish:
     runs-on: ubuntu-latest
     needs: [example_api_build, lib_pack]
-    defaults:
-      run:
-        working-directory: ./DataGridVueDotnet
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -70,7 +67,7 @@ jobs:
     needs: [example_api_build, lib_pack, lib_publish]
     defaults:
       run:
-        working-directory: ./DataGridVueDotnetExample
+        working-directory: /DataGridVueDotnetExample
     environment:
       name: 'Production'
       url: ${{ steps.example_api_deploy.outputs.webapp-url }}
@@ -93,7 +90,7 @@ jobs:
     needs: lib_publish
     defaults:
       run:
-        working-directory: ./DataGridVueDotnet
+        working-directory: /DataGridVueDotnet
     steps:
       - uses: actions/checkout@v4
       - name: Parse package version
