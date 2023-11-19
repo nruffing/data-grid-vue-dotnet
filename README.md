@@ -41,6 +41,9 @@ A full example with an ASP.NET API and EF Core context can be seen in the _DataG
 
 ## Release Notes
 
+### v1.1.0
+ - Include symbols
+
 ### v1.0.0
  - Add models for server-side storage
  - Add documentation comments
