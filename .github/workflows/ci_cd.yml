@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  lib_build:
+  lib_pack:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,8 +18,13 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '8.x'
-      - name: dotnet build
-        run: dotnet build -c Release
+      - name: dotnet pack
+        run: dotnet pack -c Release -o ${{env.DOTNET_ROOT}}/lib-pack
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: lib-pack
+          path: ${{env.DOTNET_ROOT}}/lib-pack
 
   example_api_build:
     runs-on: ubuntu-latest
@@ -44,26 +49,25 @@ jobs:
 
   lib_publish:
     runs-on: ubuntu-latest
-    needs: [example_api_build, lib_build]
+    needs: [example_api_build, lib_pack]
     defaults:
       run:
         working-directory: ./DataGridVueDotnet
     steps:
-      - name: publish on version change
-        uses: brandedoutcast/publish-nuget@v2
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
         with:
-          PROJECT_FILE_PATH: ./DataGridVueDotnet.csproj
-          BUILD_CONFIGURATION: Release
-          PACKAGE_NAME: DataGridVueDotnet
-          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
-          TAG_COMMIT: true
-          TAG_FORMAT: v*
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
+          name: lib-pack
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.x'
+      - name: dotnet nuget push
+        run: dotnet nuget push ${{env.DOTNET_ROOT}}/lib-pack/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
 
   example_api_deploy:
     runs-on: ubuntu-latest
-    needs: [example_api_build, lib_build, lib_publish]
+    needs: [example_api_build, lib_pack, lib_publish]
     defaults:
       run:
         working-directory: ./DataGridVueDotnetExample
@@ -83,3 +87,24 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_05C66992EE1E4240856CA5FAB1D9FD64 }}
+
+  create_lib_release:
+    runs-on: ubuntu-latest
+    needs: lib_publish
+    defaults:
+      run:
+        working-directory: ./DataGridVueDotnet
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse package version
+        run: echo "VERSION=$(grep -Po '(?<=<Version>)\d+\.\d+\.\d+(?=<\/Version>)' ./DataGridVueDotnet.csproj)" >> $GITHUB_ENV
+      - name: Parse release notes
+        run: echo "RELEASE_NOTES=$(grep -Po '(?<=### v1\.0\.0\n)\X+(?=\n\n)' ../README.md)" >> $GITHUB_ENV
+      - name: Create release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: v${{ env.VERSION }}
+          description: ${{ env.RELEASE_NOTES }}
