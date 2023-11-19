@@ -9,6 +9,7 @@
     <img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/nruffing?logo=github&color=%23ffa600">
   </a>
 </p>
+
 dotnet models and IQueryable extensions for handling server-side paging, sorting, filtering, and saving grid state for [data-grid-vue](https://datagridvue.com)
 
 ## Example
