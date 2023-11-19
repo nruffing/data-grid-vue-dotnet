@@ -104,4 +104,4 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           release_name: v${{ env.VERSION }}
-          description: ${{ env.RELEASE_NOTES }}
+          body: ${{ env.RELEASE_NOTES }}
