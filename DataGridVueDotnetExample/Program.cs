@@ -74,7 +74,6 @@ namespace DataGridVueDotnetExample
         options.RoutePrefix = "";
         options.InjectStylesheet("swagger-data-grid-vue.css");
         options.ConfigObject.DefaultModelRendering = Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model;
-        options.HeadContent = "test";
       });
 
       app.UseHttpsRedirection();

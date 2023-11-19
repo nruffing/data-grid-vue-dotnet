@@ -23,6 +23,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="XmlDocMarkdown.Core" Version="2.9.0" />
   </ItemGroup>
 
   <ItemGroup>
