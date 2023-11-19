@@ -8,16 +8,15 @@
 	<Description>dotnet models and IQueryable extensions for handling server-side paging, sorting, and filtering for data-grid-vue</Description>
 	<PackageId>DataGridVueDotnet</PackageId>
 	<Version>0.0.1-alpha</Version>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	<RepositoryUrl>https://github.com/nruffing/data-grid-vue-dotnet</RepositoryUrl>
 	<PackageProjectUrl>http://datagridvue.com</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
-   	<None Include="..\LICENSE">
-   	  <Pack>True</Pack>
-      <PackagePath></PackagePath>
-   	</None>
+	<None Include="..\README.md" Pack="true" PackagePath="\"/>
+   	<None Include="..\LICENSE"  Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
