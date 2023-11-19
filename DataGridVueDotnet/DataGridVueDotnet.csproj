@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<Authors>Nicholas Ruffing</Authors>
-	<Description>dotnet models and IQueryable extensions for handling server-side paging, sorting, and filtering for data-grid-vue</Description>
-	<PackageId>DataGridVueDotnet</PackageId>
-	<Version>0.0.1-alpha</Version>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-	<RepositoryUrl>https://github.com/nruffing/data-grid-vue-dotnet</RepositoryUrl>
-	<PackageProjectUrl>http://datagridvue.com</PackageProjectUrl>
+    <Authors>Nicholas Ruffing</Authors>
+    <Description>dotnet models and IQueryable extensions for handling server-side paging, sorting, filtering, and saving grid state for data-grid-vue</Description>
+    <PackageId>DataGridVueDotnet</PackageId>
+    <Version>1.0.0</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/nruffing/data-grid-vue-dotnet</RepositoryUrl>
+    <PackageProjectUrl>https://datagridvue.com</PackageProjectUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-	<None Include="..\README.md" Pack="true" PackagePath="\"/>
-   	<None Include="..\LICENSE"  Pack="true" PackagePath="\"/>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
