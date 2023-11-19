@@ -28,8 +28,24 @@ namespace DataGridVueDotnetExample
                     .UseSqlite("DataSource=file::memory:?cache=shared");
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "AllowLocal",
+                    policy =>
+                    {
+                        policy
+                            .WithOrigins("http://localhost:5173", "http://127.0.0.1:5173")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    }
+                );
+            });
+
             var app = builder.Build();
 
+            app.UseCors("AllowLocal");
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
