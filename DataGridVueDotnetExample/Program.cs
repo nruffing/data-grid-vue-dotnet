@@ -69,16 +69,18 @@ namespace DataGridVueDotnetExample
       app.UseSwagger();
       app.UseSwaggerUI(options =>
       {
+        options.DocumentTitle = "Swagger - Data Grid Vue Example API";
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.RoutePrefix = "";
+        options.InjectStylesheet("swagger-data-grid-vue.css");
+        options.ConfigObject.DefaultModelRendering = Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model;
+        options.HeadContent = "test";
       });
 
       app.UseHttpsRedirection();
-
       app.UseAuthorization();
-
-
       app.MapControllers();
+      app.UseStaticFiles();
 
       app.Run();
     }
