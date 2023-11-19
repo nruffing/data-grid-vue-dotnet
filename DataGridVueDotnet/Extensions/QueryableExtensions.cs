@@ -5,10 +5,8 @@ namespace DataGridVueDotnet.Extensions
 {
     public static class QueryableExtensions
     {
-#pragma warning disable CS8601 // Possible null reference assignment.
         private static readonly Type PropertyAccessType = Assembly.GetExecutingAssembly().GetTypes().First(t => t.Name.StartsWith("PropertyAccessor"));
-        #pragma warning restore CS8601 // Possible null reference assignment.
-
+     
         public static IQueryable<TDataItem> ApplyPageDataRequest<TDataItem>(this IQueryable<TDataItem> query, PageDataRequest request)
         {
             request.Validate();
@@ -49,7 +47,14 @@ namespace DataGridVueDotnet.Extensions
 
         public static IOrderedQueryable<TDataItem> Sort<TDataItem>(this IQueryable<TDataItem> query, Sort sort, bool isFirst)
         {
-            var propertyAccessType = PropertyAccessType.MakeGenericType(typeof(TDataItem), sort.DataType.GetAssociatedType());
+            var dataItemType = typeof(TDataItem);
+            var property = dataItemType.GetProperties().FirstOrDefault(p => p.Name.Equals(sort.FieldName, StringComparison.OrdinalIgnoreCase));
+            if (property is null)
+            {
+                throw new InvalidOperationException($"Could not find property {sort.FieldName} on {dataItemType}");
+            }
+
+            var propertyAccessType = PropertyAccessType.MakeGenericType(typeof(TDataItem), property.PropertyType);
             var propertyAccess = Activator.CreateInstance(propertyAccessType, sort.FieldName) as IPropertyAccessor<TDataItem>;
             
             if (propertyAccess is null)
