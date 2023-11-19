@@ -1,4 +1,6 @@
-﻿namespace DataGridVueDotnet
+﻿using System.Linq.Expressions;
+
+namespace DataGridVueDotnet
 {
     public class FilterCondition
     {
@@ -8,7 +10,9 @@
 
         public DataType DataType { get; set; }
 
-        public dynamic? Value { get; set; }
+        public string? Value { get; set; }
+
+        public bool IsValid => !string.IsNullOrEmpty(FieldName) && DataType.IsValidFilterOperator(Operator);
 
         public override string ToString()
         {
