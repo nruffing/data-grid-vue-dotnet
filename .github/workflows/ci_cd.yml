@@ -47,7 +47,7 @@ jobs:
     needs: [example_api_build, lib_build]
     steps:
       - name: publish on version change
-      - uses: brandedoutcast/publish-nuget@v2
+        uses: brandedoutcast/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: DataGridVueDotnet/DataGridVueDotnet.csproj
           BUILD_CONFIGURATION: Release
