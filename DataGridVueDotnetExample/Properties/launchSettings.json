@@ -12,7 +12,6 @@
     "DataGridVueDotnetExample": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:40290/swagger/index.html",
       "applicationUrl": "http://localhost:40290",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

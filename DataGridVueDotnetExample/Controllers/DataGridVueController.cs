@@ -25,12 +25,18 @@ namespace DataGridVueDotnetExample.Controllers
       }
     }
 
+    /// <summary>
+    /// Get all data items.
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult<TestDataItem[]>> Get()
     {
       return Ok(await _context.TestDataItems.ToArrayAsync());
     }
 
+    /// <summary>
+    /// Get page data based on request.
+    /// </summary>
     [HttpPost]
     public async Task<ActionResult<PageData<TestDataItem>>> Post(PageDataRequest request)
     {
