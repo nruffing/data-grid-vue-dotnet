@@ -15,7 +15,9 @@ public async Task<ActionResult<PageData<TestDataItem>>> Post(PageDataRequest req
     var dataItems = await query
         .ApplyPageDataRequest(request)
         .ToArrayAsync();
-    var count = await query.CountAsync();
+    var count = await query
+		.Filter(request)
+		.CountAsync();
 
     return Ok(new PageData<TestDataItem>()
     {

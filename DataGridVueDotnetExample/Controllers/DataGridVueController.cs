@@ -43,7 +43,9 @@ namespace DataGridVueDotnetExample.Controllers
             var dataItems = await query
                 .ApplyPageDataRequest(request)
                 .ToArrayAsync();
-            var count = await query.CountAsync();
+            var count = await query
+                .Filter(request)
+                .CountAsync();
 
             return Ok(new PageData<TestDataItem>()
             {
