@@ -1,0 +1,48 @@
+name: Example API CI/CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  example_api_build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./DataGridVueDotnetExample
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.x'
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/example-api
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: example-api
+          path: ${{env.DOTNET_ROOT}}/example-api
+
+  example_api_deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./DataGridVueDotnetExample
+    environment:
+      name: 'Production'
+      url: ${{ steps.example_api_deploy.outputs.webapp-url }}
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: example-api
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'data-group-vue-api-example'
+          slot-name: 'Production'
+          package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_05C66992EE1E4240856CA5FAB1D9FD64 }}
