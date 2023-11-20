@@ -55,7 +55,9 @@ jobs:
     - name: Parse package version
       run: echo "VERSION=$(grep -Po '(?<=<Version>)\d+\.\d+\.\d+(?=<\/Version>)' ./DataGridVueDotnet.csproj)" >> $GITHUB_ENV
     - name: Get existing versions from NuGet
-      run: echo "EXISTING_VERSIONS=$(curl --silent https://api.nuget.org/v3-flatcontainer/DataGridVueDotnet/index.json)" >> $GITHUB_ENV
+      run: |
+        curl --silent https://api.nuget.org/v3-flatcontainer/DataGridVueDotnet/index.json > versions.json
+        echo "EXISTING_VERSIONS=$(cat versions.json)" >> $GITHUB_ENV
     outputs:
       should_publish: ${{ contains(env.EXISTING_VERSIONS, env.VERSION) == false }}
 
