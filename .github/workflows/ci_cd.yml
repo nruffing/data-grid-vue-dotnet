@@ -65,7 +65,7 @@ jobs:
   lib_publish:
     runs-on: ubuntu-latest
     needs: [lib_should_publish]
-    if: needs.lib_should_publish.outputs.should_publish
+    if: fromJson(needs.lib_should_publish.outputs.should_publish)
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
