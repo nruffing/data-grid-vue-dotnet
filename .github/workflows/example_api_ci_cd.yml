@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: example-api
-          path: ${{github.workflow}}/example-api-release
+          path: ${{github.workspace}}/example-api-release
 
   example_api_deploy:
     runs-on: ubuntu-latest

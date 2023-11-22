@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: lib-pack
-          path: ${{github.workflow}}/lib-pack
+          path: ${{github.workspace}}/lib-pack
 
   example_api_build:
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: example-api
-          path: ${{github.workflow}}/example-api-release
+          path: ${{github.workspace}}/example-api-release
 
   lib_should_publish:
     runs-on: ubuntu-latest
