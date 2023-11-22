@@ -27,4 +27,4 @@ jobs:
         with:
           tag_name: v${{ vars.TEST_VERSION }}
           release_name: v${{ vars.TEST_VERSION }}
-          body_path: ./release_notes.txt
+          body_path: ${{ github.workspace }}/release_notes.txt
