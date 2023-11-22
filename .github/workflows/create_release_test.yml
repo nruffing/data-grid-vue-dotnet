@@ -6,6 +6,8 @@ on:
 jobs:
   create_release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: ./DataGridVueDotnet
@@ -22,4 +24,4 @@ jobs:
         with:
           tag_name: v${{ vars.TEST_VERSION }}
           release_name: v${{ vars.TEST_VERSION }}
-          body_path: release_notes.txt
+          body_path: ./release_notes.txt
