@@ -1,4 +1,4 @@
-name: Example API CI/CD
+name: Create Release Test
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Escape version
-        run: echo "ESCAPED_VERSION=$(echo "${{ env.TEST_VERSION }}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')" >> $GITHUB_ENV
+        run: echo "ESCAPED_VERSION=$(echo "${{ vars.TEST_VERSION }}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')" >> $GITHUB_ENV
       - name: Parse release notes
         run: echo "RELEASE_NOTES=$(grep -Po '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+(?=\n\n)' ../README.md)" >> $GITHUB_ENV
       - name: Create release
