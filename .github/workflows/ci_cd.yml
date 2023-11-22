@@ -7,7 +7,6 @@ on:
       - main
 
 env:
-  DOTNET_ROOT: ''
   VERSION: ''
   EXISTING_VERSIONS: ''
   ESCAPED_VERSION: ''
@@ -25,12 +24,12 @@ jobs:
         with:
           dotnet-version: '8.x'
       - name: dotnet pack
-        run: dotnet pack -c Release -o ${{env.DOTNET_ROOT}}/lib-pack
+        run: dotnet pack -c Release -o lib-pack
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: lib-pack
-          path: ${{env.DOTNET_ROOT}}/lib-pack
+          path: ${{github.workflow}}/lib-pack
 
   example_api_build:
     runs-on: ubuntu-latest
@@ -46,12 +45,12 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/example-api
+        run: dotnet publish -c Release -o example-api-release
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: example-api
-          path: ${{env.DOTNET_ROOT}}/example-api
+          path: ${{github.workflow}}/example-api-release
 
   lib_should_publish:
     runs-on: ubuntu-latest

@@ -3,9 +3,6 @@ name: Example API CI/CD
 on:
   workflow_dispatch:
 
-env:
-  DOTNET_ROOT: ''
-
 jobs:
   example_api_build:
     runs-on: ubuntu-latest
@@ -21,12 +18,12 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/example-api
+        run: dotnet publish -c Release -o example-api-release
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: example-api
-          path: ${{env.DOTNET_ROOT}}/example-api
+          path: ${{github.workflow}}/example-api-release
 
   example_api_deploy:
     runs-on: ubuntu-latest
