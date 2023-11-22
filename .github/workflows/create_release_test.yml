@@ -1,0 +1,25 @@
+name: Example API CI/CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./DataGridVueDotnet
+    steps:
+      - uses: actions/checkout@v4
+      - name: Escape version
+        run: echo "ESCAPED_VERSION=$(echo "${{ env.TEST_VERSION }}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')" >> $GITHUB_ENV
+      - name: Parse release notes
+        run: echo "RELEASE_NOTES=$(grep -Po '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+(?=\n\n)' ../README.md)" >> $GITHUB_ENV
+      - name: Create release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.TEST_VERSION }}
+          release_name: v${{ env.TEST_VERSION }}
+          body: ${{ env.RELEASE_NOTES }}
