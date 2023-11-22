@@ -18,7 +18,7 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
       - name: dotnet publish
-        run: dotnet publish -c Release -o example-api-release
+        run: dotnet publish -c Release -o ${{github.workspace}}/example-api-release
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
