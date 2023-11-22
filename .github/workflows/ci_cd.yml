@@ -6,6 +6,12 @@ on:
     branches:
       - main
 
+env:
+  DOTNET_ROOT: ''
+  VERSION: ''
+  EXISTING_VERSIONS: ''
+  ESCAPED_VERSION: ''
+
 jobs:
   lib_pack:
     runs-on: ubuntu-latest
@@ -104,9 +110,6 @@ jobs:
     defaults:
       run:
         working-directory: ./DataGridVueDotnetExample
-    environment:
-      name: 'Production'
-      url: ${{ steps.example_api_deploy.outputs.webapp-url }}
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3

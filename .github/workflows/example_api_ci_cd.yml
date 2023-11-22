@@ -3,6 +3,9 @@ name: Example API CI/CD
 on:
   workflow_dispatch:
 
+env:
+  DOTNET_ROOT: ''
+
 jobs:
   example_api_build:
     runs-on: ubuntu-latest
@@ -30,9 +33,6 @@ jobs:
     defaults:
       run:
         working-directory: ./DataGridVueDotnetExample
-    environment:
-      name: 'Production'
-      url: ${{ steps.example_api_deploy.outputs.webapp-url }}
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
