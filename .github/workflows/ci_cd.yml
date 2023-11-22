@@ -91,7 +91,7 @@ jobs:
       - name: Escape version
         run: echo "ESCAPED_VERSION=$(echo "${{ env.TEST_VERSION }}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')" >> $GITHUB_ENV
       - name: Parse release notes
-        run: grep -Pzo '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+(?=\n\n)' ../README.md) > release_notes.txt
+        run: (grep -Pzo '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+(?=\n\n)' ../README.md)) > release_notes.txt
       - name: Create release
         uses: actions/create-release@latest
         env:
