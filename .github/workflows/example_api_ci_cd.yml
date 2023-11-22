@@ -27,6 +27,7 @@ jobs:
 
   example_api_deploy:
     runs-on: ubuntu-latest
+    needs: example_api_build
     defaults:
       run:
         working-directory: ./DataGridVueDotnetExample
