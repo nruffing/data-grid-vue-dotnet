@@ -14,12 +14,12 @@ jobs:
       - name: Escape version
         run: echo "ESCAPED_VERSION=$(echo "${{ vars.TEST_VERSION }}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')" >> $GITHUB_ENV
       - name: Parse release notes
-        run: echo "RELEASE_NOTES=$(grep -Po '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+(?=\n\n)' ../README.md)" >> $GITHUB_ENV
+        run: echo "RELEASE_NOTES=$(grep -Pzo '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+(?=\n\n)' ../README.md)" >> $GITHUB_ENV
       - name: Create release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ env.TEST_VERSION }}
-          release_name: v${{ env.TEST_VERSION }}
+          tag_name: v${{ vars.TEST_VERSION }}
+          release_name: v${{ vars.TEST_VERSION }}
           body: ${{ env.RELEASE_NOTES }}
