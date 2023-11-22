@@ -83,15 +83,12 @@ jobs:
     needs: [lib_publish]
     permissions:
       contents: write
-    defaults:
-      run:
-        working-directory: ./DataGridVueDotnet
     steps:
       - uses: actions/checkout@v4
       - name: Escape version
-        run: echo "ESCAPED_VERSION=$(echo "${{ env.TEST_VERSION }}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')" >> $GITHUB_ENV
+        run: echo "ESCAPED_VERSION=$(echo "${{ env.VERSION }}" | sed 's/[^^]/[&]/g; s/\^/\\^/g')" >> $GITHUB_ENV
       - name: Parse release notes
-        run: (grep -Pzo '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+(?=\n\n)' ../README.md)) > release_notes.txt
+        run: (grep -Pzo '(?<=### v${{ env.ESCAPED_VERSION }}\n)\X+?(?=\n\n)' README.md)) | tr -d '\0' > release_notes.txt
       - name: Create release
         uses: actions/create-release@latest
         env:
@@ -99,7 +96,7 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           release_name: v${{ env.VERSION }}
-          body_path: release_notes.txt
+          body_path: ${{ github.workspace }}/release_notes.txt
 
   example_api_deploy:
     runs-on: ubuntu-latest
