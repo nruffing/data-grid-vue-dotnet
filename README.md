@@ -12,6 +12,26 @@
 
 dotnet models and IQueryable extensions for handling server-side paging, sorting, filtering, and saving grid state for [data-grid-vue](https://datagridvue.com)
 
+> [!NOTE]
+DataGridVueDotnet currently targets .NET 6 and probably will until [support ends in November 2024](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core).
+
+<p align="center">
+  <a href="https://github.com/nruffing/data-grid-vue-dotnet/actions/workflows/ci_cd.yml">
+    <img src="https://github.com/nruffing/data-grid-vue-dotnet/actions/workflows/ci_cd.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/nruffing/data-grid-vue-dotnet/blob/main/LICENSE" aria-label="MIT License">
+    <img alt="GitHub" src="https://img.shields.io/github/license/nruffing/data-grid-vue-dotnet" />
+  </a>
+  <a href="https://www.nuget.org/packages/DataGridVueDotnet" target="_blank">
+    <img alt="Nuget" src="https://img.shields.io/nuget/v/DataGridVueDotnet" />
+  </a>
+</p>
+
+## Installation
+```sh
+dotnet add package DataGridVueDotnet
+```
+
 ## Example
 ```c#
 [HttpPost]
@@ -37,7 +57,7 @@ public async Task<ActionResult<PageData<TestDataItem>>> Post(PageDataRequest req
     });
 }
 ```
-A full example with an ASP.NET API and EF Core context can be seen in the _DataGridVueDotnetExample_ folder.
+A full example with an ASP.NET API and EF Core context can be seen in the [_DataGridVueDotnetExample_](https://github.com/nruffing/data-grid-vue-dotnet/tree/main/DataGridVueDotnetExample) folder.
 
 ## Release Notes
 
