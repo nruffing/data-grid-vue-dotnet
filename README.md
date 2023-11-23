@@ -16,6 +16,10 @@ dotnet models and IQueryable extensions for handling server-side paging, sorting
 DataGridVueDotnet currently targets .NET 6 and probably will until [support ends in November 2024](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core).
 
 <p align="center">
+  :books: <a href="https://datagridvue.com/dotnet-generated/DataGridVueDotnet.html" target="_blank">Documentation</a>
+</p>
+
+<p align="center">
   <a href="https://github.com/nruffing/data-grid-vue-dotnet/actions/workflows/ci_cd.yml">
     <img src="https://github.com/nruffing/data-grid-vue-dotnet/actions/workflows/ci_cd.yml/badge.svg" />
   </a>

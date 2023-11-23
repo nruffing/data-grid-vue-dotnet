@@ -31,4 +31,10 @@
     <ProjectReference Include="..\DataGridVueDotnet\DataGridVueDotnet.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="../README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

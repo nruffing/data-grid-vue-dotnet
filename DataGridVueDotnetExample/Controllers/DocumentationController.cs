@@ -14,6 +14,8 @@ namespace DataGridVueDotnetExample.Controllers
     private const string XmlCacheKey = "DataGridVueDotnet-Docs-XML";
     private const string MarkdownCacheKey = "DataGridVueDotnet-Docs-Markdown";
     private const string XmlFileName = "DataGridVueDotnet.xml";
+    private const string ReadmeFileName = "README.md";
+    private static readonly string ReadmeFilePath = Path.Combine(AppContext.BaseDirectory, ReadmeFileName);
     private static readonly string XmlFilePath = Path.Combine(AppContext.BaseDirectory, XmlFileName);
     private static readonly string DllFilePath = Path.Combine(AppContext.BaseDirectory, "DataGridVueDotnet.dll");
     private static readonly string MarkdownDocsDirectory = Path.Combine(AppContext.BaseDirectory, "md-docs");
@@ -55,6 +57,9 @@ namespace DataGridVueDotnetExample.Controllers
           ShouldClean = true,
         };
         var result = XmlDocMarkdownGenerator.Generate(DllFilePath, MarkdownDocsDirectory, settings);
+
+        var readmeText = System.IO.File.ReadAllText(ReadmeFilePath);
+        System.IO.File.WriteAllText(Path.Combine(MarkdownDocsDirectory, ReadmeFileName), readmeText);
 
         using var stream = new MemoryStream();
         ZipFile.CreateFromDirectory(MarkdownDocsDirectory, stream, CompressionLevel.Fastest, false);
