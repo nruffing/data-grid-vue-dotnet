@@ -67,7 +67,7 @@ namespace DataGridVueDotnetExample.Controllers
         return NoContent();
       }
 
-      return File(bytes, "application/xml; charset=utf-8", $"{MarkdownCacheKey}.zip");
+      return File(bytes, "application/zip", $"{MarkdownCacheKey}.zip");
     }
   }
 }
