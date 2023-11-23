@@ -1,5 +1,6 @@
 using System.Reflection;
 using DataGridVueDotnetExample.Data;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataGridVueDotnetExample
@@ -12,6 +13,11 @@ namespace DataGridVueDotnetExample
 
       builder.Logging.ClearProviders();
       builder.Logging.AddConsole();
+
+      if (builder.Environment.IsDevelopment() == false)
+      {
+        builder.Services.AddApplicationInsightsTelemetry();
+      }
 
       // Add services to the container.
 
