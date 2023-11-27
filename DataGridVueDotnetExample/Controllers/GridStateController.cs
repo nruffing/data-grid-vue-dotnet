@@ -21,14 +21,14 @@ namespace DataGridVueDotnetExample.Controllers
     [ProducesResponseType(400)]
     [ProducesResponseType<GridState>(200)]
     [ProducesResponseType(204)]
-    public ActionResult<GridState> Get(GetGridStateRequest<string> request)
+    public ActionResult<GridState> Get(GetGridStateRequest<string, string> request)
     {
       if (string.IsNullOrWhiteSpace(request?.UserId))
       {
         return BadRequest();
       }
 
-      if (_cache.TryGetValue<GridState>(request.UserId, out var state))
+      if (_cache.TryGetValue<GridState>(request.UserId + request.GridId, out var state))
       {
         return Ok(state);
       }
@@ -42,7 +42,7 @@ namespace DataGridVueDotnetExample.Controllers
     [HttpPost]
     [ProducesResponseType(400)]
     [ProducesResponseType(204)]
-    public ActionResult Set(SetGridStateRequest<string> request)
+    public ActionResult Set(SetGridStateRequest<string, string> request)
     {
       if (string.IsNullOrWhiteSpace(request?.UserId))
       {
@@ -51,10 +51,10 @@ namespace DataGridVueDotnetExample.Controllers
 
       if (request.GridState is null)
       {
-        _cache.Remove(request.UserId);
+        _cache.Remove(request.UserId + request.GridId);
       }
 
-      _cache.Set(request.UserId, request.GridState, DateTimeOffset.Now.AddHours(1));
+      _cache.Set(request.UserId + request.GridId, request.GridState, DateTimeOffset.Now.AddHours(1));
 
       return NoContent();
     }

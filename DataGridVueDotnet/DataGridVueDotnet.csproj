@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Authors>Nicholas Ruffing</Authors>
     <Description>dotnet models and IQueryable extensions for handling server-side paging, sorting, filtering, and saving grid state for data-grid-vue</Description>
 
